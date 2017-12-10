@@ -1,6 +1,8 @@
 'use strict';
-
+const Sequelize = require('sequelize');
 const db = require('../index');
+const Students = require('./students.js')
+const Campuses = require('./campus.js')
 
 // Require all the models
 	// Running each model (i.e. table) module (i.e. file) registers each model into our sequelize db
@@ -8,5 +10,8 @@ const db = require('../index');
 	// Exporting all models from here seems like a good idea!
 
 // This is also probably a good place for you to set up your associations
+
+Students.belongsTo(Campuses);
+Campuses.hasMany(Students);
 
 module.exports = db
