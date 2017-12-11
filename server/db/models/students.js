@@ -32,9 +32,11 @@ let Students = db.define('students', {
     }
   },
   gpa: {
-    //WILL THIS WORK?
-    type: Sequelize.DECIMAL,
-    //PUT A RANGE HERE
+    type: Sequelize.FLOAT,
+    validate: {
+      min: 0,
+      max: 4
+    }
   },
   name: {
     type: Sequelize.VIRTUAL,

@@ -5,8 +5,9 @@
 //   constructor(props) {
 //     super(props);
 //     this.state = {
-//       campusName:'',
-//       campusDescription: ''
+//       name:'',
+//       description: '',
+//       id: 0
 //     }
 //     this.handleNameChange = this.handleNameChange.bind(this);
 //     this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
@@ -15,12 +16,12 @@
 
 //   handleNameChange(event) {
 //     const value = event.target.value
-//     this.setState({campusName: value})
+//     this.setState({name: value})
 //   }
 
 //   handleDescriptionChange(event) {
 //     const value = event.target.value
-//     this.setState({campusDescription: value})
+//     this.setState({description: value})
 //   }
 
 //   handleSubmit(event) {

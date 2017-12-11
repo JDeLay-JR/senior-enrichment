@@ -4,10 +4,7 @@ const Students = require('../db/models/students.js')
 
 
 router.post('/newCampus', (req, res, next) => {
-  Campuses.create({
-    name: req.body.campusName,
-    description: req.body.campusDescription
-  })
+  Campuses.create(req.body.newCampus)
   .then(newCampus => res.send(newCampus))
 })
 

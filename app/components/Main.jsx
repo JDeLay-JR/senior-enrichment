@@ -11,7 +11,7 @@ import IndividualStudent from './IndividualStudent.jsx'
 import DeleteConfirm from './DeleteConfirm.jsx'
 
 //Importing the store and all the thunks
-import store, {fetchStudents, fetchCampuses, fetchSingleCampus, getSingleCampus, postStudent, fetchSingleStudent, deleteStudent} from '../store'
+import store, {fetchStudents, fetchCampuses, fetchSingleCampus, getSingleCampus, postStudent, fetchSingleStudent} from '../store'
 
 
 export default class Main extends Component {
@@ -22,12 +22,12 @@ export default class Main extends Component {
     const getStudentListThunk = fetchStudents();
     const getCampusListThunk = fetchCampuses();
     const getSingleCampusThunk = fetchSingleCampus();
-    const addStudentThunk = postStudent();
+    //const addStudentThunk = postStudent();
     const fetchSingleStudentThunk = fetchSingleStudent();
     store.dispatch(getStudentListThunk);
     store.dispatch(getCampusListThunk);
     store.dispatch(getSingleCampusThunk);
-    store.dispatch(addStudentThunk);
+  //  store.dispatch(addStudentThunk);
     store.dispatch(fetchSingleStudentThunk);
   }
 

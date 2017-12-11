@@ -2,10 +2,18 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import axios from 'axios'
 import { Redirect } from 'react-router'
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
-function StudentsList(props) {
+class StudentsList extends Component {
+  constructor(props) {
+    super(props);
+  }
+  componentWillUpdate(nextProps) {
+    if(this.props !== nextProps) {
 
+    }
+  }
+  render() {
   return (
     <div>
     <h1>Students List</h1>
@@ -38,6 +46,7 @@ function StudentsList(props) {
     </div>
   )
 }
+}
 
 //CONNECT TO STORE\\
 const mapStateToProps = function(state) {
@@ -48,7 +57,7 @@ const mapStateToProps = function(state) {
 }
 
 
-const StudentListContainer = connect(mapStateToProps)(StudentsList);
+const StudentListContainer = withRouter(connect(mapStateToProps)(StudentsList));
 export default StudentListContainer;
 
 

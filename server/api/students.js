@@ -3,12 +3,9 @@ const Students = require('../db/models/students.js')
 const Campus = require('../db/models/campus.js')
 
 
-// //Get student by their ID
-// router.get('/:id', (req, res, next) => {
-//   const id = parseInt(req.params.id);
-//   Students.findById(id)
-//   .then(studentById => res.send(studentById))
-//   .catch(next);
+// router.put('/studentId', (req, res, next) => {
+// const id = req.params.studentId
+
 // })
 
 router.delete('/:studentId', (req, res, next) => {
@@ -25,17 +22,12 @@ router.get('/', (req, res, next) => {
   .catch(next);
 })
 
-// //Post a new student to the DB
-// router.post('/newStudent', (req, res, next) => {
-//   Students.create({
-//     firstName: req.body.firstName,
-//     lastName: req.body.lastName,
-//     email: req.body.email,
-//     gpa: req.body.gpa
-//   })
-//   .then(newStudent => res.send(newStudent))
-//   .catch(next)
-// })
+//Post a new student to the DB
+router.post('/newStudent', (req, res, next) => {
+  Students.create(req.body)
+  .then(newStudent => res.send(newStudent))
+  .catch(next)
+})
 
 //Delete a student from the DB
 
