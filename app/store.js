@@ -9,7 +9,7 @@ import campuses from './reducers/campuses';
 
 const rootReducer = combineReducers({
   students,
-  campuses,
+  campuses
 })
 
  const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunkMiddleware, loggingMiddleware)));

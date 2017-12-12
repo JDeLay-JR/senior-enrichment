@@ -9,15 +9,6 @@ router.post('/newCampus', (req, res, next) => {
   .catch(next);
 })
 
-router.put('/:campusId', (req, res, next) => {
-  const id = req.params.campusId
-  const updatedCampus = req.body
-  Campuses.findById(id)
-  .then(foundCampus => foundCampus.update(updatedCampus))
-  .then(completedUpdate => res.send(completedUpdate))
-  .catch(next)
-})
-
 router.delete('/:campusId', (req, res, next) => {
   const id = req.params.campusId;
   Campuses.destroy({where: {id}})
@@ -31,5 +22,6 @@ router.get('/', (req, res, next) => {
   .then(campuses => res.send(campuses))
   .catch(next)
 })
+
 
 module.exports = router

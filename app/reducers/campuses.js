@@ -1,5 +1,4 @@
 import axios from 'axios';
-import default from '../components/CampusList';
 
 
 //ACTION TYPE
@@ -76,17 +75,7 @@ export function deleteCampus (campusId) {
   }
 }
 
-export default function putCampus (campusId) {
-  return function thunk(dispatch) {
-    return axios.put(`/api/campuses/${campusId}`)
-    .then(() => {
-      const action = updateCampus(action)
-      return dispatch(action)
-    })
-  }
-}
-
-//REDUCERS
+//REDUCER
 export default function reducer (state = [], action) {
   switch (action.type) {
     case GET_CAMPUS_LIST:
@@ -99,8 +88,6 @@ export default function reducer (state = [], action) {
           return campus
         }
       })
-    case UPDATE_CAMPUS:
-      return state
     default:
       return state;
   }

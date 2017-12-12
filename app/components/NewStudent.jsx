@@ -17,7 +17,7 @@ function NewStudent(props) {
         {
           props.campuses.map(campus => {
             return (
-              <option value={campus.id}>{campus.name}</option>
+              <option key={campus.id} value={campus.id}>{campus.name}</option>
             )
           })
         }

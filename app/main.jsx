@@ -7,7 +7,7 @@ import { Router, Route, Switch } from 'react-router'
 import store from './store'
 
 
-render (
+render(
   <Provider store={store}>
    <Main/>
   </Provider>,

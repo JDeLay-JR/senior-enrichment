@@ -24,8 +24,8 @@ function StudentsList(props) {
           })
 
           return (
-          <div>
-            <Link to={`/student/${student.id}`} >
+          <div key={student.id}>
+            <Link key={student.id} to={`/student/${student.id}`} >
             <li key={student.id}>
                   {student.name} | {studentCampus}
             </li>

@@ -10,7 +10,14 @@ function CampusList(props) {
         {
           props.campuses.map(campus => {
             return (
-                <Link key={campus.id} to={`/campus/${campus.id}`}><li> {campus.name} </li></Link>
+              <div>
+                <Link key={campus.id} to={`/campus/${campus.id}`}>
+
+                <li> {campus.name} </li>
+                <img src={campus.imgUrl} />
+
+                </Link>
+              </div>
             )
           })
         }

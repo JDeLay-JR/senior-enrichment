@@ -13,8 +13,8 @@ function SingleCampus(props) {
         {
           props.students.map(student => {
             return (
-            <div>
-              <li key={student.id}><Link to={`/student/${student.id}`}>{student.name}</Link></li>
+            <div key={student.id}>
+              <Link to={`/student/${student.id}`}><li key={student.id}>{student.name}</li></Link>
             </div>
             )
           })
