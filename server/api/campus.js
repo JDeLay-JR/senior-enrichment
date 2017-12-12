@@ -4,8 +4,18 @@ const Students = require('../db/models/students.js')
 
 
 router.post('/newCampus', (req, res, next) => {
-  Campuses.create(req.body.newCampus)
+  Campuses.create(req.body)
   .then(newCampus => res.send(newCampus))
+  .catch(next);
+})
+
+router.put('/:campusId', (req, res, next) => {
+  const id = req.params.campusId
+  const updatedCampus = req.body
+  Campuses.findById(id)
+  .then(foundCampus => foundCampus.update(updatedCampus))
+  .then(completedUpdate => res.send(completedUpdate))
+  .catch(next)
 })
 
 router.delete('/:campusId', (req, res, next) => {

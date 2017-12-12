@@ -1,74 +1,32 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux'
 import { NavLink } from 'react-router-dom';
-import axios from 'axios';
+import { postStudent } from '../store'
 
-class NewStudent extends Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-        firstName: "",
-        lastName: "",
-        email: "",
-        gpa: 0,
-        campusId: 0
-      }
-      this.handleSubmit = this.handleSubmit.bind(this);
-      this.handleFirstNameChange = this.handleFirstNameChange.bind(this)
-      this.handleLastNameChange = this.handleLastNameChange.bind(this)
-      this.handleEmailChange = this.handleEmailChange.bind(this)
-      this.handleGPAChange = this.handleGPAChange.bind(this)
-      this.handleCampusChange = this.handleCampusChange.bind(this)
-    }
+function NewStudent(props) {
+  return (
+  <div>
+    <h1>Add a New Student</h1>
+    <form id="newStudent" onSubmit={props.handleSubmit}>
+      <input name="firstName" type="text" placeholder="First Name"></input>
+      <input name="lastName" type="text" placeholder="Last Name"></input>
+      <input name="email" type="email" placeholder="Email"></input>
+      <input name="gpa" type="number" step="0.01" min="0" max="4" placeholder="GPA"></input>
 
-    handleSubmit(event) {
-      const studentToAdd = this.state
-      axios.post('/api/students/newStudent', studentToAdd)
-      .then(res => res.data)
-      event.preventDefault();
-    }
-
-    handleFirstNameChange(event) {
-      this.setState({firstName: event.target.value})
-    }
-    handleLastNameChange(event) {
-      this.setState({lastName: event.target.value})
-    }
-    handleEmailChange(event) {
-      this.setState({email: event.target.value})
-    }
-    handleGPAChange(event) {
-      this.setState({gpa: event.target.value})
-    }
-    handleCampusChange(event) {
-      this.setState({campusId: event.target.value })
-    }
-
-    render () {
-      console.log('STATE => ', this.state)
-      return (
-      <div>
-        <h1>Add a New Student</h1>
-        <form onSubmit={this.handleSubmit}>
-          <input type="text" onChange={this.handleFirstNameChange} placeholder="First Name"></input>
-          <input type="text" onChange={this.handleLastNameChange} placeholder="Last Name"></input>
-          <input type="email" onChange={this.handleEmailChange} placeholder="Email"></input>
-          <input type="number" step="0.01" min="0" max="4" onChange={this.handleGPAChange} placeholder="GPA"></input>
-          <select onChange={this.handleCampusChange}>
-            {
-              this.props.campuses.map(campus => {
-                return (
-                  <option value={campus.id}>{campus.name}</option>
-                )
-              })
-            }
-          </select>
-          <button>Submit</button>
-          <NavLink to={'/students'}><button>Home</button></NavLink>
-        </form>
-      </div>
-      )
-    }
+      <select name="campusId">
+        {
+          props.campuses.map(campus => {
+            return (
+              <option value={campus.id}>{campus.name}</option>
+            )
+          })
+        }
+      </select>
+      <button>Submit</button>
+      <NavLink to={'/students'}><button>Home</button></NavLink>
+    </form>
+  </div>
+  )
 }
 
 const mapStateToProps = function(state) {
@@ -78,6 +36,24 @@ const mapStateToProps = function(state) {
   };
 }
 
+const mapDispatchToProps = function(dispatch, ownProps) {
+  return {
+    handleSubmit(event) {
+      event.preventDefault();
+      const form = document.getElementById('newStudent')
+      const studentToAdd = {
+        firstName: event.target.firstName.value,
+        lastName: event.target.lastName.value,
+        email: event.target.email.value,
+        gpa: event.target.gpa.value,
+        campusId: event.target.campusId.value
+      }
+      dispatch(postStudent(studentToAdd))
+      form.reset();
+      ownProps.history.push('/students')
+    }
+  }
+}
 
-const NewStudentContainer = connect(mapStateToProps)(NewStudent);
+const NewStudentContainer = connect(mapStateToProps, mapDispatchToProps)(NewStudent);
 export default NewStudentContainer;

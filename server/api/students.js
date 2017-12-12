@@ -8,8 +8,8 @@ const Campus = require('../db/models/campus.js')
 
 // })
 
-router.delete('/:studentId', (req, res, next) => {
-  const id = req.params.studentId;
+router.delete('/:id', (req, res, next) => {
+  const id = req.params.id;
   Students.destroy({where: {id}})
   .then(() => res.sendStatus(204))
   .catch(next)

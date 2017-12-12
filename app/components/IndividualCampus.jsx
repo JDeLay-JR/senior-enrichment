@@ -1,59 +1,69 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom'
-import axios from 'axios'
+import { deleteCampus } from '../store'
 
-function SingleCampusList(props) {
-  let idFromURI = props.location.pathname.split("/").pop();
 
-  function handleDelete() {
-    return props.campuses.map(campus => {
-      if (campus.id === parseInt(idFromURI)) {
-         return axios.delete(`/api/campuses/${campus.id}`)
-         .then(console.log("IT'SAH GONE"))
-         .then(res => res.data)
-         .catch(next);
-        }
-      })
-    }
+function SingleCampus(props) {
   return (
     <div>
-      {
-        props.campuses.map(campus => {
-          if (campus.id === parseInt(idFromURI)) {
-            return (
-            <h1 key={campus.id}>{campus.name}</h1>
-            )
-          }
-        })
-      }
+      <h1>{props.thisCampus.name}</h1>
+      <h4>Students:</h4>
       <ol>
         {
           props.students.map(student => {
-            if (student.campusId === parseInt(idFromURI)) {
             return (
             <div>
               <li key={student.id}><Link to={`/student/${student.id}`}>{student.name}</Link></li>
-              <Link to={`/delete`}><input type='submit' onClick={handleDelete} value='Delete Campus'></input></Link>
             </div>
             )
-          }
           })
         }
       </ol>
+      <button onClick={props.handleDelete}>Delete</button>
+      <Link to={'/'}><button>Home</button></Link>
     </div>
   )
 }
 
 //CONNECT TO STORE
+const mapStateToProps = function (state, ownProps) {
 
-const mapStateToProps = function(state) {
-  return {
-    students: state.students,
-    campuses: state.campuses,
-    studentsAtSingleCampus: state.studentsAtSingleCampus
+    const currentCampusId = Number(ownProps.match.params.id);
+
+    const thisCampus = state.campuses.find(campus => {
+      if (campus.id === currentCampusId) {
+        return campus
+      }
+    })
+
+    const students = state.students.filter(student => {
+      if (student.campusId === thisCampus.id) {
+        return student
+      }
+    })
+
+    console.log("STUDENTS  ", students)
+
+    console.log("THIS CAMPUS ", thisCampus)
+    return {
+      students,
+      campuses: state.campuses,
+      thisCampus
+    }
   }
-}
 
-const SingleCampusListContainer = connect(mapStateToProps)(SingleCampusList);
-export default SingleCampusListContainer;
+  const mapDispatchToProps = function (dispatch, ownProps) {
+    const currentCampusId = Number(ownProps.match.params.id);
+    return {
+      handleDelete(event) {
+        event.preventDefault();
+        dispatch(deleteCampus(currentCampusId))
+        ownProps.history.push('/campuses');
+      }
+    }
+  }
+
+  const SingleCampusContainer = connect(mapStateToProps, mapDispatchToProps)(SingleCampus);
+  export default SingleCampusContainer
+

@@ -4,20 +4,12 @@ import axios from 'axios'
 import { Redirect } from 'react-router'
 import { Link, withRouter } from 'react-router-dom';
 
-class StudentsList extends Component {
-  constructor(props) {
-    super(props);
-  }
-  componentWillUpdate(nextProps) {
-    if(this.props !== nextProps) {
-
-    }
-  }
-  render() {
+function StudentsList(props) {
   return (
     <div>
     <h1>Students List</h1>
     <Link to="/newStudent"><input type='submit' value='Add New Student'></input></Link>
+    <Link to={'/'}><button>Home</button></Link>
     <ol>
       {
         props.students.map(student => {
@@ -45,7 +37,6 @@ class StudentsList extends Component {
     </ol>
     </div>
   )
-}
 }
 
 //CONNECT TO STORE\\

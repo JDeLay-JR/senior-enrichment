@@ -15,6 +15,8 @@ function CampusList(props) {
           })
         }
       </ul>
+      <Link to={'/newCampus'}><button>Add New Campus</button></Link>
+      <Link to={'/'}><button>Home</button></Link>
     </div>
   )
 }

@@ -19,16 +19,12 @@ export default class Main extends Component {
   componentDidMount() {
 
     //For Students List
+
     const getStudentListThunk = fetchStudents();
     const getCampusListThunk = fetchCampuses();
-    const getSingleCampusThunk = fetchSingleCampus();
-    //const addStudentThunk = postStudent();
-    const fetchSingleStudentThunk = fetchSingleStudent();
+
     store.dispatch(getStudentListThunk);
     store.dispatch(getCampusListThunk);
-    store.dispatch(getSingleCampusThunk);
-  //  store.dispatch(addStudentThunk);
-    store.dispatch(fetchSingleStudentThunk);
   }
 
   render() {
@@ -42,8 +38,7 @@ export default class Main extends Component {
             <Route path='/campus/:id' component={IndividualCampus} />
             <Route exact path='/campuses' component={CampusList} />
             <Route exact path='/newStudent' component={NewStudent}/>
-            {/* <Header/> */}
-            {/* <NewCampus/> */}
+            <Route exact path="/newCampus" component={NewCampus}/>
             <Route component={Home} />
             </Switch>
         </div>

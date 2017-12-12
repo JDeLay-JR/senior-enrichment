@@ -1,50 +1,45 @@
-// import React, { Component } from 'react';
-// import axios from 'axios'
+import React, {Component} from 'react';
+import {connect} from 'react-redux'
+import { NavLink } from 'react-router-dom';
+import { postCampus } from '../store'
 
-// export default class NewCampus extends Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       name:'',
-//       description: '',
-//       id: 0
-//     }
-//     this.handleNameChange = this.handleNameChange.bind(this);
-//     this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
-//     this.handleSubmit = this.handleSubmit.bind(this);
-//   }
+function NewCampus(props) {
+  return (
+  <div>
+    <h1>Add a New Campus</h1>
+    <form id="newCampus" onSubmit={props.handleSubmit}>
+      <input name="campusName" type="text" placeholder="Campus Name"></input>
+      <input name="imgUrl" type="text" placeholder="Image URL"></input>
+      <input name="campusDescription" type="text" placeholder="Campus Description"></input>
+      <button>Submit</button>
+      <NavLink to={'/campuses'}><button>Home</button></NavLink>
+    </form>
+  </div>
+  )
+}
 
-//   handleNameChange(event) {
-//     const value = event.target.value
-//     this.setState({name: value})
-//   }
+const mapStateToProps = function(state) {
+  return {
+    campuses: state.campuses
+  };
+}
 
-//   handleDescriptionChange(event) {
-//     const value = event.target.value
-//     this.setState({description: value})
-//   }
+const mapDispatchToProps = function(dispatch) {
+  return {
+    handleSubmit(event) {
+      event.preventDefault();
+      const form = document.getElementById('newCampus')
+      const campusToAdd = {
+        name: event.target.campusName.value,
+        description: event.target.campusDescription.value,
+        imgUrl: event.target.imgUrl.value
+      }
+      dispatch(postCampus(campusToAdd))
+      form.reset();
+    }
+  }
+}
 
-//   handleSubmit(event) {
-//     event.preventDefault();
+const NewCampusContainer = connect(mapStateToProps, mapDispatchToProps)(NewCampus);
 
-//     const addCampus = this.props.addCampus;
-//     addCampus(this.state);
-//     this.setState({campusName: '', campusDescription: ''})
-//   }
-
-//   render() {
-//     return (
-//       <div>
-//         <h1>New Campus</h1>
-//           <form>
-//             <p>Campus Name</p>
-//             <input type="text" value={this.state.campusName} onChange={this.handleNameChange}></input>
-//             <p>Description</p>
-//             <input type="text" value={this.state.campusDescription} onChange={this.handleDescriptionChange}></input>
-//             <input type="submit" value="Submit">
-//             </input>
-//           </form>
-//       </div>
-//     )
-//   }
-// }
+export default NewCampusContainer;
